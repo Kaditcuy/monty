@@ -7,10 +7,12 @@
 This project is about building a bytecode interpreter for the `Monty 0.98` Scripting language, coded in `C`.
 
 Compilation :package::
+
 ```gcc -Wall -Werror -Wextra -pedantic *.c -o monty```
 
 Usage :computer::
-```./monty byte_file.m```
+
+```./monty name_of_file.m```
 
 The program reads line by line from the file "<name_of_file>.m" that contains one instruction per line. It then calls the right function to modify a stack according to the instruction on the line. I t prints custom error messages if the instruction is wrong.
 
