@@ -72,9 +72,12 @@ typedef struct arg_s
 } args_t;
 
 
+extern data_t data;
+
 #define DATA_INIT {NULL, NULL, NULL, NULL, 0}
 #define USAGE "USAGE: monty file\n"
 #define FILE_ERROR "Error: Can't open file %s\n"
+#define UNKNOWN "L%u: unknown instruction %s\n"
 
 
 
@@ -93,10 +96,13 @@ typedef struct arg_s
 
 
 
+/* main.c */
+void monty(args_t *args);
 
-
-
-
+/* get_func.c */
+void (*get_func(char **words))(stack_t **, unsigned int);
+void push_handler(stack_t **stack, unsigned int line_number);
+void pall_handler(stack_t **stack, unsigned int line_number);
 
 
 

@@ -29,6 +29,6 @@ File | Description
 [handler_funcs3.c](./handler_funcs3.c) | handler functions for the instructions
 [list_funcs1.c](./list_funcs1.c) | doubly linked list functions
 [list_funcs2.c](./list_funcs2.c) | doubly linked list functions
-[strtow.c](./strtow.c) | string tokenizing functions
+[_strtok.c](./_strtok.c) | string tokenizing functions
 [free.c](./free.c) | memory handling functions
 [char.c](./char.c) | handler functions for ascii instructions
