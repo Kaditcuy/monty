@@ -78,7 +78,8 @@ extern data_t data;
 #define USAGE "USAGE: monty file\n"
 #define FILE_ERROR "Error: Can't open file %s\n"
 #define UNKNOWN "L%u: unknown instruction %s\n"
-
+#define PUSH_FAIL "L%u: usage: push integer\n"
+#define MALLOC_FAIL "Error: malloc failed\n"
 
 
 
