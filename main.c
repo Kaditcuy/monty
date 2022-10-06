@@ -1,79 +1,29 @@
 #include "monty.h"
-#include "lists.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
-data_t data = DATA_INIT;
+char **op_toks = NULL;
 
 /**
-* main - Entry point for monty bytecode interpreter
-* @argc: number of arguments
-* @argv: array of arguments
-*
-* Return: EXIT_SUCCESS or EXIT_FAILURE
-*/
+ * main - the entry point for Monty Interp
+ *
+ * @argc: the count of arguments passed to the program
+ * @argv: pointer to an array of char pointers to arguments
+ *
+ * Return: (EXIT_SUCCESS) on success (EXIT_FAILURE) on error
+ */
 int main(int argc, char **argv)
 {
-	args_t args;
+	FILE *script_fd = NULL;
+	int exit_code = EXIT_SUCCESS;
 
-	args.ac = argc;
-	args.av = argv[1];
-	args.line_number = 0;
-
-	monty(&args);
-
-	exit(EXIT_SUCCESS);
-
-	return (0);
-}
-
-/**
-* monty - helper function for main function.
-* @args: pointer to struct of arguments parsed to
-*		 main function from the command line.
-*
-* Description: opens and reads from the file containing
-*			   the opcodes, and calls the right function indicated
-*			   by the opcode that will find the corresponding executing function
-*              to modify the stack.
-*/
-void monty(args_t *args)
-{
-	size_t len = 0;
-	int get = 0;
-	void (*code_func)(stack_t **, unsigned int);
-
-	if (args->ac != 2)
-	{
-		dprintf(STDERR_FILENO, USAGE);
-		exit(EXIT_FAILURE);
-	}
-	/** else we want to open the file av == argv[1]*/
-	data.fptr = fopen(args->av, "r");
-	if (data.fptr == NULL)
-	{
-		dprintf(STDERR_FILENO, FILE_ERROR, args->av);
-		exit(EXIT_FAILURE);
-	}
-	while (1) /**means once the file was opened successfully*/
-	{
-		args->line_number++;
-		get = getline(&(data.line), &len, data.fptr);
-		if (get < 0)
-			break;
-		data.words = _strtok(data.line);
-		if (data.words[0] == NULL || data.words[0][0] == '#')
-		{
-			free_all(0);
-			continue;
-		}
-		code_func = get_func(data.words);
-		if (!code_func)
-		{
-			dprintf(STDERR_FILENO, UNKNOWN, args->line_number, data.words[0]);
-			free_all(1);
-			exit(EXIT_FAILURE);
-		}
-		code_func(&(data.stack), args->line_number);
-		free_all(0);
-	}
-	free_all(1);
+	if (argc != 2)
+		return (usage_error());
+	script_fd = fopen(argv[1], "r");
+	if (script_fd == NULL)
+		return (f_open_error(argv[1]));
+	exit_code = run_monty(script_fd);
+	fclose(script_fd);
+	return (exit_code);
 }
