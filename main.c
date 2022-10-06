@@ -24,11 +24,14 @@ int main(int argc, char **argv)
 }
 
 /**
-* monty - helper function for main function
-* @args: pointer to struct of arguments parsed to main function from the command line
+* monty - helper function for main function.
+* @args: pointer to struct of arguments parsed to
+*		 main function from the command line.
 *
-* Description: opens and reads from the file containing the opcodes, and calls the right
-*				function indicated by the opcode that will find the corresponding executing function					to modify the stack.
+* Description: opens and reads from the file containing
+*			   the opcodes, and calls the right function indicated
+*			   by the opcode that will find the corresponding executing function
+*              to modify the stack.
 */
 void monty(args_t *args)
 {
@@ -50,14 +53,12 @@ void monty(args_t *args)
 	}
 	while (1) /**means once the file was opened successfully*/
 	{
-		args->linenumber++; /**incremented because linenumber was set to 0 in struct annd we want to start from line1*/
+		args->linenumber++;
 		get = getline(&(data.line), &len, data.fptr);
 		if (get < 0)
-		{
 			break;
-		}
 		data.words = _strtok(data.line);
-		if (data.words[0] == NULL || data.words[0][0] = '#')
+		if (data.words[0] == NULL || data.words[0][0] == '#')
 		{
 			free_all(0);
 			continue;
