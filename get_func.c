@@ -49,7 +49,7 @@ void (*get_func(char **words))(stack_t **, unsigned int)
 */
 void push_handler(stack_t **stack, unsigned int line_number)
 {
-	stack_t new;
+	stack_t *new;
 	int num = 0;
 	int  i;
 
@@ -72,9 +72,9 @@ void push_handler(stack_t **stack, unsigned int line_number)
 	num = atoi(data.words[1]);
 
 	if (data.qflag == 0)
-		new = add_nodeint(stack, num);
+		new = add_dnodeint(stack, num);
 	else if (data.qflag == 1)
-		new = add_nodeint_end(stack, num);
+		new = add_dnodeint_end(stack, num);
 	if (!new)
 	{
 		dprintf(STDERR_FILENO, MALLOC_FAIL);

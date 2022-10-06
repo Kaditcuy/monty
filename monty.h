@@ -1,10 +1,11 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define  _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctypes.h>
+#include <ctype.h>
 #include <unistd.h>
 
 /**
@@ -22,6 +23,8 @@ typedef struct stack_s
 	struct stack_s *prev;
 	struct stack_s *next;
 } stack_t;
+
+typedef stack_t dlistint_t;
 
 /**
 * struct instruction_s - opcode and its function
@@ -67,14 +70,13 @@ typedef struct data_s
 typedef struct arg_s
 {
 	int ac;
-	char **av;
+	char *av;
 	unsigned int line_number;
 } args_t;
 
 
 extern data_t data;
 
-typedef stack_t dlistint_t;
 
 #define DATA_INIT {NULL, NULL, NULL, NULL, 0}
 

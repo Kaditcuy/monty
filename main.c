@@ -14,13 +14,15 @@ int main(int argc, char **argv)
 {
 	args_t args;
 
-	args->ac = argc;
-	args->av = argv[1];
-	args->line_number = 0;
+	args.ac = argc;
+	args.av = argv[1];
+	args.line_number = 0;
 
 	monty(&args);
 
-	return (EXIT_SUCCES);
+	exit(EXIT_SUCCESS);
+
+	return (0);
 }
 
 /**
@@ -35,7 +37,7 @@ int main(int argc, char **argv)
 */
 void monty(args_t *args)
 {
-	size_t len = 0
+	size_t len = 0;
 	int get = 0;
 	void (*code_func)(stack_t **, unsigned int);
 
@@ -53,7 +55,7 @@ void monty(args_t *args)
 	}
 	while (1) /**means once the file was opened successfully*/
 	{
-		args->linenumber++;
+		args->line_number++;
 		get = getline(&(data.line), &len, data.fptr);
 		if (get < 0)
 			break;
@@ -66,7 +68,7 @@ void monty(args_t *args)
 		code_func = get_func(data.words);
 		if (!code_func)
 		{
-			dprint(STDERR_FILEN0, UNKNOWN, args->line_number, data.words[0]);
+			dprintf(STDERR_FILENO, UNKNOWN, args->line_number, data.words[0]);
 			free_all(1);
 			exit(EXIT_FAILURE);
 		}

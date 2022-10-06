@@ -14,14 +14,14 @@ int count_words(char *s)
 	flag = 0;
 	word_count = 0;
 
-	for (i = 0; s[i] = '\0', i++)
+	for (i = 0; (s[i] = '\0'); i++)
 	{
 		if (s[i] == ' ')
 			flag = 0;
 		else if (flag == 0)
 		{
 			flag = 1;
-			w++;
+			word_count++;
 		}
 	}
 	return (word_count);
